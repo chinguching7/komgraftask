@@ -25,7 +25,7 @@ int windowWidth  = 1024;     // mode lebar layar normal
 int windowHeight = 768;     // mode tinggi layar normal
 int windowPosX   = 50;      // posisi tampilan layar pojok k1ri atas titik x
 int windowPosY   = 50;      // posisi tampilan layar pojok k1ri atas titik y
-bool fullScreenMode = true; // Full-screen or windowed mode?
+bool fullScreenMode = false; // Full-screen or windowed mode?
 
 float rotx , roty , tx=0 , ty, tz=0,y ,zz,p;
 int i;
@@ -382,8 +382,86 @@ Image * loadTexture14(){
     }
     return image14;
 }
+//dalam 
+Image * loadTexture15(){
+    Image *image15;
 
+    // allocate space for texture
+    image15 = (Image *) malloc(sizeof(Image));
 
+    if (image15 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/dalamtinggi.bmp", image15)) {
+        exit(1);
+    }
+    return image15;
+}
+//belakangsamping
+Image * loadTexture16(){
+    Image *image16;
+
+    // allocate space for texture
+    image16 = (Image *) malloc(sizeof(Image));
+
+    if (image16 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/dalamtinggi.bmp", image16)) {
+        exit(1);
+    }
+    return image16;
+}
+//atas samping
+Image * loadTexture17(){
+    Image *image17;
+
+    // allocate space for texture
+    image17 = (Image *) malloc(sizeof(Image));
+
+    if (image17 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/atassamping.bmp", image17)) {
+        exit(1);
+    }
+    return image17;
+}
+//atassebelah
+Image * loadTexture18(){
+    Image *image18;
+
+    // allocate space for texture
+    image18 = (Image *) malloc(sizeof(Image));
+
+    if (image18 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/atassebelah.bmp", image18)) {
+        exit(1);
+    }
+    return image18;
+}
+//atasdalam
+Image * loadTexture19(){
+    Image *image19;
+
+    // allocate space for texture
+    image19 = (Image *) malloc(sizeof(Image));
+
+    if (image19 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/dalamatas.bmp", image19)) {
+        exit(1);
+    }
+    return image19;
+}
 
 /*----------------------------------------------------------------------------*/
 
@@ -407,12 +485,18 @@ void init(void)
     Image *image12 = loadTexture12();
     Image *image13 = loadTexture13();
     Image *image14 = loadTexture14();
+    Image *image15 = loadTexture15();
+    Image *image16 = loadTexture16();
+    Image *image17 = loadTexture17();
+    Image *image18 = loadTexture18();
+    Image *image19 = loadTexture19();
     
 
 if(image1 == NULL||image2 == NULL||image3 == NULL||image4 == NULL||
     image5 == NULL||image6 == NULL||image7 == NULL||image8 == NULL||
     image9 == NULL||image10 == NULL||image11 == NULL||image12 == NULL||
-    image13 == NULL||image14 == NULL) {
+    image13 == NULL||image14 == NULL||image15 == NULL||image16 == NULL||
+    image17 == NULL||image18 == NULL||image19 == NULL) {
         printf("Image was not returned from loadTexture\n");
         exit(0);
     }
@@ -420,6 +504,47 @@ if(image1 == NULL||image2 == NULL||image3 == NULL||image4 == NULL||
     makeCheckImage();
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     
+    
+    // Create Texture dalamatas
+    glGenTextures(19, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[19]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image19->sizeX, image19->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image19->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    // Create Texture Atassebelah
+    glGenTextures(18, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[18]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image18->sizeX, image18->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image18->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    // Create Texture Atassamping
+    glGenTextures(17, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[17]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image17->sizeX, image17->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image17->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    // Create Texture Dalamtinggi
+    glGenTextures(16, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[16]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image16->sizeX, image16->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image16->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    // Create Texture dalamtinggi
+    glGenTextures(15, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[15]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image15->sizeX, image15->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image15->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     // Create Texture jalan
     glGenTextures(14, texture);
     glBindTexture(GL_TEXTURE_2D, texture[14]);
@@ -548,14 +673,10 @@ if(image1 == NULL||image2 == NULL||image3 == NULL||image4 == NULL||
 void rumput(){
      glBindTexture(GL_TEXTURE_2D, texture[1]);
      glBegin(GL_QUADS);
-        glTexCoord2f(0.0, 0.0);
-		glVertex3f(-3, -0.5, -3);
-		glTexCoord2f(0.5, 0.0);
-		glVertex3f(-3, -0.5, 3);
-		glTexCoord2f(0.5, 0.5);
-		glVertex3f(3, -0.5, 3);
-		glTexCoord2f(0.0, 0.5);
-		glVertex3f(3, -0.5, -3);		
+        glTexCoord2f(0.0, 0.0);glVertex3f(-3, -0.5, -3);
+		glTexCoord2f(0.5, 0.0);glVertex3f(-3, -0.5, 1.02);
+		glTexCoord2f(0.5, 0.5);glVertex3f(3, -0.5, 1.02);
+		glTexCoord2f(0.0, 0.5);glVertex3f(3, -0.5, -3);		
 	glEnd();
 }
 //----------------------Procedure dinding gedung--------------------------------
@@ -808,7 +929,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kiri1 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[16]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.7,1.0,-0.7);  //titik E
@@ -828,7 +949,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kiri2 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[15]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.45,1.0,-0.9);  //titik E
@@ -848,7 +969,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kanan1 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[16]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.7,1.0,-0.7);  //titik E
@@ -868,7 +989,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kanan2 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[15]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.45,1.0,-0.9);  //titik E
@@ -889,73 +1010,73 @@ void dinding_gedung()
 //-----------------------------------------------------------------------------     
      //tembok bagian atas depan
      //tembok atas depan kiri1
-     glBindTexture(GL_TEXTURE_2D, texture[3]);
+     glBindTexture(GL_TEXTURE_2D, texture[18]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,1.0,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.95,1.0,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.95,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.95,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.38,-0.1); //titik C
      glEnd();
      
      //tembok atas depan kiri1 dalam1
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,1.0,-0.18);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.8,1.0,-0.1);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,-0.5,-0.1); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,-0.5,-0.18); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,0.38,-0.1); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.38,-0.18); //titik F
      glEnd();
      
      //tembok atas depan kiri1 dalam depan
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
      
       glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,0.98,-0.18);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.8,0.98,-0.18);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,-0.5,-0.18); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,-0.5,-0.18); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,0.38,-0.18); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,0.38,-0.18); //titik C
      glEnd();
       
        //tembok atas depan kiri1 dalam2
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,1.0,-0.1);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,1.0,-0.18);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,-0.5,-0.18); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,-0.5,-0.1); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.38,-0.18); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,0.38,-0.1); //titik F
      glEnd();
      
      //tembok atas depan kiri2
-     glBindTexture(GL_TEXTURE_2D, texture[4]);
+     glBindTexture(GL_TEXTURE_2D, texture[17]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.4,1.0,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,1.0,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.4,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.4,0.38,-0.1); //titik C
      glEnd();
      
      //tembok atas depan kiri2 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,0.98,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,0.98,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.38,-0.1); //titik C
      glEnd();
      
      //tembok atas depan kiri2 luar
-     glBindTexture(GL_TEXTURE_2D, texture[4]);
+     glBindTexture(GL_TEXTURE_2D, texture[8]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,1.0,-0.1);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,1.0,-0.04);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,-0.5,-0.04); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,-0.5,-0.1); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.38,-0.04); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.38,-0.1); //titik F
      glEnd();
        
       //tembok atas depan tengah1
@@ -964,81 +1085,489 @@ void dinding_gedung()
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.35,1.0,-0.04);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,1.0,-0.04);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,-0.5,-0.04); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,-0.5,-0.04); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.38,-0.04); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.38,-0.04); //titik C
      glEnd();
      
      //tembok atas depan kanan2 luar
-     glBindTexture(GL_TEXTURE_2D, texture[4]);
+     glBindTexture(GL_TEXTURE_2D, texture[8]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.35,1.0,-0.1);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(0.35,1.0,-0.04);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,-0.5,-0.04); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,-0.5,-0.1); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.38,-0.04); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.38,-0.1); //titik F
      glEnd();
      
      //tembok atas depan kanan2 dalam
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.4,0.98,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(0.35,0.98,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,0.38,-0.1); //titik C
      glEnd();
      
      //tembok atas depan kanan2
-     glBindTexture(GL_TEXTURE_2D, texture[4]);
+     glBindTexture(GL_TEXTURE_2D, texture[17]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.4,1.0,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(0.76,1.0,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,0.38,-0.1); //titik C
      glEnd();
      
      //tembok atas depan kanan1 dalam2
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.76,1.0,-0.1);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(0.76,1.0,-0.18);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,-0.5,-0.18); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,-0.5,-0.1); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.38,-0.18); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,0.38,-0.1); //titik F
      glEnd();
      
      //tembok atas depan kanan1 dalam depan
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
      
       glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.76,0.98,-0.18);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(0.8,0.98,-0.18);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,-0.5,-0.18); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,-0.5,-0.18); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,0.38,-0.18); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,0.38,-0.18); //titik C
      glEnd();
      
      //tembok atas depan kanan1 dalam1
-     glBindTexture(GL_TEXTURE_2D, texture[2]);
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.8,1.0,-0.18);  //titik E
        glTexCoord2f(0.0, 1.0);glVertex3f(0.8,1.0,-0.1);  //titik D
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,-0.5,-0.1); //titik C
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,-0.5,-0.18); //titik F
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,0.38,-0.1); //titik C
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.38,-0.18); //titik F
      glEnd();
      
      //tembok atas depan kanan1
-     glBindTexture(GL_TEXTURE_2D, texture[3]);
+     glBindTexture(GL_TEXTURE_2D, texture[18]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.8,1.0,-0.1);  //titik D
        glTexCoord2f(0.0, 1.0);glVertex3f(0.95,1.0,-0.1);  //titik A       
-       glTexCoord2f(0.0, 0.0);glVertex3f(0.95,-0.5,-0.1); //titik B
-       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,-0.5,-0.1); //titik C
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.95,0.38,-0.1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.38,-0.1); //titik C
      glEnd();
      
+//--------------------------Procedure atap--------------------------------------
+     //atapbawah
+     
+     //atapdepanbawahtengah     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.4,-0.04);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.4,0.54);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,0.4,0.54); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,0.4,-0.04); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiri     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.35,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.35,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanan     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalam
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.4,0.38,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,0.38,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalam
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.4,0.38,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,0.38,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluar
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.4,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluar
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.4,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.4,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,0.4,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,0.4,-0.102);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.76,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,0.4,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,0.4,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,0.4,-0.102);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,0.4,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbangetbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.76,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.76,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluarbangetbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbangetsekali
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.38,-0.18);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.38,-0.18);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,0.38,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.76,0.38,0.5); //titik C
+     glEnd();
+          
+     //atapdepanbawahtengahkanandalamluarbangetsekali
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.38,-0.18);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.38,-0.18);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,0.38,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,0.38,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbangetbangetluarbinasa
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.8,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluarbangetbangetluarbinasa
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,0.38,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.38,0.5);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.8,0.4,-0.102); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbangetwahkeren
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.95,0.4,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.4,-0.102);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.95,0.4,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluarbangetwahkeren
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.95,0.4,-0.102);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.4,-0.102);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.95,0.4,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkiridalamluarbangetwahkerenbreww
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(1.0,0.4,0.3);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.95,0.4,0.3);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.95,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(1.0,0.4,0.5); //titik C
+     glEnd();
+     
+     //atapdepanbawahtengahkanandalamluarbangetwahkerenbreww
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-1.0,0.4,0.3);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.95,0.4,0.3);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.95,0.4,0.5); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-1.0,0.4,0.5); //titik C
+     glEnd();
+     
+//-------------------------------atapatas---------------------------------------
+     //atapdepanatastengah     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,1.0,-1.0);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,1.0,-0.04);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,1.0,-0.04); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,1.0,-1.0); //titik C
+     glEnd();
+    
+     //atapdepanatastengahkiri     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.98,-0.04);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.98,-1.0);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.35,1.0,-1.0); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.35,1.0,-0.04); //titik C
+     glEnd();
+    
+     //atapdepanatastengahkanan     
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.98,-0.04);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.98,-1.0);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.35,1.0,-1.0); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.35,1.0,-0.04); //titik C
+     glEnd();
+       
+     //atapdepanatastengahkiridalam
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.35,0.98,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.35,0.98,-1.0);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.4,0.98,-1.0); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,0.98,-0.1); //titik C
+     glEnd();
+    
+     //atapdepanatastengahkanandalam
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.35,0.98,-1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.35,0.98,-0.1);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.4,0.98,-0.1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,0.98,-1); //titik C
+     glEnd();
+      
+     //atapdepanatastengahkiridalamluar
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,0.98,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.4,0.98,-1);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.4,1,-1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,1,-0.1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkanandalamluar
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,0.98,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.4,0.98,-1);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.4,1,-1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,1,-0.1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,1,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,1,-0.1);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.76,1,-0.7); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,1,-0.7); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbangetwow
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,1,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.7,1,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.7,1,-0.9); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,1,-0.9); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.4,1,-0.9);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.45,1,-0.9);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.45,1,-1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.4,1,-1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbangetwow
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,1,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.7,1,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.7,1,-0.9); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,1,-0.9); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,1,-0.9);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.45,1,-0.9);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.45,1,-1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,1,-1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkanandalamluarbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.4,1,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,1,-0.1);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,1,-0.7); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.4,1,-0.7); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbangetbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.98,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.76,0.98,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.76,1,-0.7); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.76,1,-0.1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkanandalamluarbangetbanget
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.98,-0.1);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.76,0.98,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.76,1,-0.7); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,1,-0.1); //titik C
+     glEnd();
+    
+     //atapdepanatastengahkiridalamluarbangetsekali
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.76,0.98,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.98,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,0.98,-0.18); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.76,0.98,-0.18); //titik C
+     glEnd();
+           
+     //atapdepanatastengahkanandalamluarbangetsekali
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.76,0.98,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.98,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,0.98,-0.18); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.76,0.98,-0.18); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbangetbangetluarbinasa
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.8,0.98,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,0.98,-0.18);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,1,-0.14); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.8,1,-0.7); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkanandalamluarbangetbangetluarbinasa
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+     
+      glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.8,0.98,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,0.98,-0.18);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,1,-0.14); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.8,1,-0.7); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkiridalamluarbangetwahkeren
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.95,1,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.8,1,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.8,1,-0.1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.95,1,-0.1); //titik C
+     glEnd();
+     
+     //atapdepanatastengahkanandalamluarbangetwahkeren
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.95,1,-0.7);  //titik D
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.8,1,-0.7);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.8,1,-0.1); //titik B
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.95,1,-0.1); //titik C
+     glEnd();
+     
+     
+     
 }
+
+
 //--------------------------Procedure pohon-------------------------------------
 void daun()
 {
@@ -1176,7 +1705,7 @@ void background(){
 }
 //--------------------------Procedure kamera------------------------------------
 void kamera(){
-    gluLookAt (0 ,0.3 , 5 ,0 , p , 1 , 0 , 4 , 1 ) ;
+    gluLookAt (0 ,1.5 , 5 ,0 , p , 1 , 0 , 4 , 1 ) ;
     glTranslatef( tx , ty , tz ) ;
     glRotatef(roty , 0 , 1 , 0 ) ;
 }
@@ -1239,7 +1768,7 @@ void specialKey(int key, int x, int y) {
             glutFullScreen();                      // Switch into full screen
          } else {                                         // Windowed mode
             glutReshapeWindow(windowWidth, windowHeight); // Switch into windowed mode
-            glutPositionWindow(windowPosX, windowPosX);   // Postion top-left corner
+            glutPositionWindow(windowPosX, windowPosX);   // Position top-left corner
          }
          break;
       default:
