@@ -462,6 +462,72 @@ Image * loadTexture19(){
     }
     return image19;
 }
+//sampingtinggi
+Image * loadTexture20(){
+    Image *image20;
+
+    // allocate space for texture
+    image20 = (Image *) malloc(sizeof(Image));
+
+    if (image20 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/belakangsamping.bmp", image20)) {
+        exit(1);
+    }
+    return image20;    
+}
+
+//towerunikom
+Image * loadTexture21(){
+    Image *image21;
+
+    // allocate space for texture
+    image21 = (Image *) malloc(sizeof(Image));
+
+    if (image21 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/unikom.bmp", image21)) {
+        exit(1);
+    }
+    return image21;    
+}
+//merah
+Image * loadTexture22(){
+    Image *image22;
+
+    // allocate space for texture
+    image22 = (Image *) malloc(sizeof(Image));
+
+    if (image22 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/merah.bmp", image22)) {
+        exit(1);
+    }
+    return image22;    
+}
+
+//kaca
+Image * loadTexture23(){
+    Image *image23;
+
+    // allocate space for texture
+    image23 = (Image *) malloc(sizeof(Image));
+
+    if (image23 == NULL) {
+        printf("Error allocating space for image");
+        exit(0);
+    }
+    if (!ImageLoad("gambar/kaca.bmp", image23)) {
+        exit(1);
+    }
+    return image23;    
+}
 
 /*----------------------------------------------------------------------------*/
 
@@ -490,13 +556,18 @@ void init(void)
     Image *image17 = loadTexture17();
     Image *image18 = loadTexture18();
     Image *image19 = loadTexture19();
+    Image *image20 = loadTexture20();
+    Image *image21 = loadTexture21();
+    Image *image22 = loadTexture22();
+    Image *image23 = loadTexture23();
     
 
 if(image1 == NULL||image2 == NULL||image3 == NULL||image4 == NULL||
     image5 == NULL||image6 == NULL||image7 == NULL||image8 == NULL||
     image9 == NULL||image10 == NULL||image11 == NULL||image12 == NULL||
     image13 == NULL||image14 == NULL||image15 == NULL||image16 == NULL||
-    image17 == NULL||image18 == NULL||image19 == NULL) {
+    image17 == NULL||image18 == NULL||image19 == NULL||image20 == NULL||
+    image21 == NULL||image22 == NULL||image23 == NULL) {
         printf("Image was not returned from loadTexture\n");
         exit(0);
     }
@@ -505,6 +576,38 @@ if(image1 == NULL||image2 == NULL||image3 == NULL||image4 == NULL||
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     
     
+    //create texture kaca
+    glGenTextures(23, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[22]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image23->sizeX, image23->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image23->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    //create texture merah
+    glGenTextures(22, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[22]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image22->sizeX, image22->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image22->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    //create texture unikom
+    glGenTextures(21, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[21]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image21->sizeX, image21->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image21->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    //Create texture belakangsamping
+    glGenTextures(20, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[20]);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); //scale linearly when image bigger than texture
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); //scale linearly when image smalled than texture
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image20->sizeX, image20->sizeY, 0,
+    GL_RGB, GL_UNSIGNED_BYTE, image20->data);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     // Create Texture dalamatas
     glGenTextures(19, texture);
     glBindTexture(GL_TEXTURE_2D, texture[19]);
@@ -919,7 +1022,7 @@ void dinding_gedung()
 //-----------------------------------------------------------------------------     
      //bagian belakang
      //belakang kiri1 depan
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[20]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.95,1.0,-0.7);  //titik E
@@ -939,7 +1042,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kiri2 depan
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[20]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(-0.7,1.0,-0.9);  //titik E
@@ -959,7 +1062,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kanan1 depan
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[20]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.95,1.0,-0.7);  //titik E
@@ -979,7 +1082,7 @@ void dinding_gedung()
      glEnd();
      
      //belakang kanan2 depan
-     glBindTexture(GL_TEXTURE_2D, texture[6]);
+     glBindTexture(GL_TEXTURE_2D, texture[20]);
     
      glBegin(GL_QUADS);
        glTexCoord2f(1.0, 1.0);glVertex3f(0.7,1.0,-0.9);  //titik E
@@ -1563,9 +1666,235 @@ void dinding_gedung()
        glTexCoord2f(0.0, 1.0);glVertex3f(-0.95,1,-0.1); //titik C
      glEnd();
      
+//----------------------------tower--------------------------------------------
+
+//towerkiriatas
+     glBindTexture(GL_TEXTURE_2D, texture[21]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.02,1.1,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.02,1.05,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-0.8); //titik C
+     glEnd();
      
+     //towerkananatas
+     glBindTexture(GL_TEXTURE_2D, texture[21]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.02,1.1,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.02,1.05,-1); //titik C
+     glEnd();
+     
+     //tower tengahdepanatas
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-0.8); //titik C
+     glEnd();
+     
+     //tower tengahbelakangatas
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-1); //titik C
+     glEnd();
+     
+     //towerkiriatas
+     glBindTexture(GL_TEXTURE_2D, texture[21]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.02,1.1,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.02,1.05,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-0.8); //titik C
+     glEnd();
+     
+     //towerkananatas
+     glBindTexture(GL_TEXTURE_2D, texture[21]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.02,1.1,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.02,1.05,-1); //titik C
+     glEnd();
+     
+     //tower tengahdepanatas
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-0.8); //titik C
+     glEnd();
+     
+     //tower tengahbelakangatas
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.1,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-1); //titik C
+     glEnd();
+     
+     //towerkiriatasabu
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.05,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.02,1.05,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.02,1,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1,-0.8); //titik C
+     glEnd();
+     
+     //towerkananatasabu
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.02,1.05,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.05,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.02,1,-1); //titik C
+     glEnd();
+     
+     //towerkiriatasmerah
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.05,-0.75);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.02,1.05,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.02,1,-0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1,-0.75); //titik C
+     glEnd();
+     
+     //towerkananatasmerah
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.02,1.05,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.05,-0.75);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1,-0.75); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.02,1,-0.8); //titik C
+     glEnd();
+     
+     //tower tengahdepanatas
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.05,-0.75);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.05,-0.75);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1,-0.75); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1,-0.75); //titik C
+     glEnd();
+     
+     //tower tengahdepanatastutup
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.05,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.05,-0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1.05,-0.75); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.05,-0.75); //titik C
+     glEnd();
+     
+     //tower tengahbelakangatas
+     glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.02,1.05,-1);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.05,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.02,1,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1,-1); //titik C
+     glEnd();
+     
+     //tower tengahdepanatastutupmerah
+     glBindTexture(GL_TEXTURE_2D, texture[22]);
+    
+     glBegin(GL_QUADS);
+        glTexCoord2f(1.0, 1.0);glVertex3f(0.02,1.1,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.02,1.1,-1);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.02,1.1,-1); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.02,1.1,-0.8); //titik C
+     glEnd();
+     
+
+//--------------------------teras kaca------------------------------------------
+
+//teras kiri
+glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.19,-0.35,0.56);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.2,-0.35,0.56);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.2,-0.5,0.56); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.19,-0.5,0.56); //titik C
+     glEnd();
+
+//teras kanan
+glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.19,-0.35,0.56);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.2,-0.35,0.56);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.2,-0.5,0.56); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.19,-0.5,0.56); //titik C
+     glEnd();
+
+//teras kiri depan
+glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.19,-0.35,0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(-0.2,-0.35,0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(-0.2,-0.5,0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.19,-0.5,0.8); //titik C
+     glEnd();
+
+//teras kanan depan
+glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.19,-0.35,0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.2,-0.35,0.8);  //titik A       
+       glTexCoord2f(0.0, 0.0);glVertex3f(0.2,-0.5,0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(0.19,-0.5,0.8); //titik C
+     glEnd();
+//teras atap
+glBindTexture(GL_TEXTURE_2D, texture[19]);
+    
+     glBegin(GL_QUADS);
+       glTexCoord2f(1.0, 1.0);glVertex3f(-0.2,-0.35,-0.8);  //titik D
+       glTexCoord2f(0.0, 1.0);glVertex3f(0.2,-0.35,-0.8);  //titik A       
+       glTexCoord2f(1.0, 1.0);glVertex3f(0.2,-0.35,0.8); //titik B
+       glTexCoord2f(1.0, 0.0);glVertex3f(-0.2,-0.35,0.8); //titik C
+     glEnd();
+
      
 }
+void tower(){
+     GLUquadricObj *p = gluNewQuadric();
+     //batang
+     glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D, texture[19]);
+        glTranslatef(0.0,-0.5,0.0);
+        glRotatef(180, 0.0, 1.0, 1.0);
+        glScalef(0.1, 0.1, 5);
+        gluCylinder(p, 0.04, 0.04, 0.04, 32, 32);
+     glPopMatrix();
+      }
+
+
 
 
 //--------------------------Procedure pohon-------------------------------------
@@ -1705,7 +2034,7 @@ void background(){
 }
 //--------------------------Procedure kamera------------------------------------
 void kamera(){
-    gluLookAt (0 ,1.5 , 5 ,0 , p , 1 , 0 , 4 , 1 ) ;
+    gluLookAt (0 ,1 , 5 ,0 , p , 1 , 0 , 4 , 1 ) ;
     glTranslatef( tx , ty , tz ) ;
     glRotatef(roty , 0 , 1 , 0 ) ;
 }
@@ -1721,6 +2050,12 @@ void display(void){
     
     rumput();
     dinding_gedung();
+    //tower
+    glPushMatrix();
+        glTranslatef(0,1.6,-0.98);
+        tower();
+    glPopMatrix();
+    
     //pohon kiri
     glPushMatrix();
         glTranslatef(-1.5,0,0.35);
